@@ -28,6 +28,19 @@ services:
           - backend
       volumes:
           - ./web2/html:/usr/local/apache2/htdocs/
+  mariadb:
+      image: mariadb
+      restart: always
+      networks:
+          - backend
+      environment:
+          - MYSQL_ROOT_PASSWORD=rootpassword
+      ports:
+          - "3306:3306"
+      volumes:
+          - dbdata:/var/lib/mysql
 networks:
     frontend:
     backend:
+volumes:
+    dbdata:
