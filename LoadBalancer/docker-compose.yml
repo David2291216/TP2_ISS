@@ -5,46 +5,29 @@ services:
       networks:
           - backend
       volumes:
-          - ./server1/html:/usr/share/nginx/html
+          - ./web1/html:/usr/share/nginx/html
   proxy:
-    image: nginx:alpine # utilise la version la plus récente
-    depends_on:
-        - php
-        - mariadb
-    networks:
-        - frontend
-    ports:
-      - '80:80' # expose 80 sur l'hôte et envoie à 80 dans conteneur
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-  server1:
-    image: httpd:alpine  # utilise la version httpd:lapine
-    networks:
-        - frontend
-        - backend
-    volumes:
-      - ./server1/html:/usr/local/apache2/htdocs/
-  server2:
-    image: httpd:alpine  # utilise la version httpd:alpine
-    networks:
-        - frontend
-        - backend
-    volumes:
-      - ./server2/html:/usr/local/apache2/htdocs/
-
-  mariadb:
-       image: mariadb
-       restart: always
-       networks:
-           - backend
-       environment:
-           - MYSQL_ROOT_PASSWORD=rootpassword
-       ports:
-           - "3306:3306"
-       volumes:
-           - dbdata:/var/lib/mysql
+      image: nginx:alpine # utilise la version la plus récente
+      networks: 
+          - frontend
+      ports:
+          - '80:80' # expose 80 sur l'hôte et envoie à 80 dans conteneur
+      volumes:
+          - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+  web1:
+      image: httpd:alpine  # utilise la version httpd:lapine
+      networks:
+          - frontend
+          - backend
+      volumes:
+          - ./web1/html:/usr/local/apache2/htdocs/
+  web2:
+      image: httpd:alpine  # utilise la version httpd:alpine
+      networks:
+          - frontend
+          - backend
+      volumes:
+          - ./web2/html:/usr/local/apache2/htdocs/
 networks:
     frontend:
     backend:
-volumes:
-    dbdata:
