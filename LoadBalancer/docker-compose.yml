@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.3'
 services:
   php:
       build: "./php/"
@@ -39,6 +39,7 @@ services:
           - "3306:3306"
       volumes:
           - dbdata:/var/lib/mysql
+
 networks:
     frontend:
     backend:
