@@ -5,7 +5,8 @@ services:
       networks:
           - backend
       volumes:
-          - ./web1/html:/usr/share/nginx/html
+          - ./web1/html:/usr/share/nginx/html/web1
+          - ./web2/html:/usr/share/nginx/html/web2
   proxy:
       image: nginx:alpine # utilise la version la plus récente
       networks: 
