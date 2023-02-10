@@ -15,6 +15,6 @@ EXPOSE 80 443
 WORKDIR /usr/local/apache2/conf
 # Change dans le repertoire de configuration
 
-COPY .web1/conf/httpd.conf httpd.conf
+COPY ./web1/conf/httpd.conf httpd.conf
 # Remplacer httpd.conf par le mien
 
