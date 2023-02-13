@@ -3,9 +3,14 @@ services:
   php:
       build: "./php/"
       networks:
-          - backend
+          - backend1
       volumes:
           - ./web1/html:/usr/share/nginx/html/web1
+  php:
+      build: "./php/"
+      networks:
+          - backend2
+      volumes:
           - ./web2/html:/usr/share/nginx/html/web2
   proxy:
       image: nginx:alpine # utilise la version la plus récente
@@ -19,30 +24,39 @@ services:
       image: httpd:alpine  # utilise la version httpd:lapine
       networks:
           - frontend
-          - backend
+          - backend1
       volumes:
           - ./web1/html:/usr/local/apache2/htdocs/
   web2:
       image: httpd:alpine  # utilise la version httpd:alpine
       networks:
           - frontend
-          - backend
+          - backend2
       volumes:
           - ./web2/html:/usr/local/apache2/htdocs/
-  mariadb:
+  mariadb1:
       image: mariadb
       restart: always
       networks:
-          - backend
+          - backend1
       environment:
           - MYSQL_ROOT_PASSWORD=rootpassword
-      ports:
-          - "3306:3306"
       volumes:
-          - dbdata:/var/lib/mysql
+          - dbdata1:/var/lib/mysql
+  mariadb2:
+      image: mariadb
+      restart: always
+      networks:
+          - backend2
+      environment:
+          - MYSQL_ROOT_PASSWORD=rootpassword
+      volumes:
+          - dbdata2:/var/lib/mysql
 
 networks:
     frontend:
-    backend:
+    backend1:
+    backend2:
 volumes:
-    dbdata:
+    dbdata1:
+    dbdata2:
