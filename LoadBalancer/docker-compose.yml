@@ -1,12 +1,12 @@
 version: '3.3'
 services:
-  php:
+  php1:
       build: "./php/"
       networks:
           - backend1
       volumes:
           - ./web1/html:/usr/share/nginx/html/web1
-  php:
+  php2:
       build: "./php/"
       networks:
           - backend2
