@@ -1,9 +1,9 @@
 #Dockerfile
-FROM httpd:latest
+FROM httpd:alpine
 # Utilise image officiel
 
-RUN apt-get update \
-&& apt-get install -y vim iproute2
+RUN apk update \
+&& apk upgrade
 # Install vim et iproute pour ss
 
 RUN mkdir /srv/htdocs
@@ -15,6 +15,6 @@ EXPOSE 80 443
 WORKDIR /usr/local/apache2/conf
 # Change dans le repertoire de configuration
 
-COPY ./web2/conf/httpd.conf httpd.conf
+COPY ./conf/httpd.conf httpd.conf
 # Remplacer httpd.conf par le mien
 

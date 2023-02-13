@@ -21,14 +21,18 @@ services:
       volumes:
           - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
   web1:
-      image: httpd:alpine  # utilise la version httpd:lapine
+      build: "./web1/"  # utilise la version httpd:lapine
+      depends_on:
+          - php1
       networks:
           - frontend
           - backend1
       volumes:
           - ./web1/html:/usr/local/apache2/htdocs/
   web2:
-      image: httpd:alpine  # utilise la version httpd:alpine
+      build: "./web2/"  # utilise la version httpd:alpine
+      depends_on:
+          - php2
       networks:
           - frontend
           - backend2
