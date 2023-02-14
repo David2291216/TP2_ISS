@@ -6,9 +6,6 @@ RUN apk update \
 && apk upgrade
 # Install vim et iproute pour ss
 
-RUN mkdir /srv/htdocs
-# Ajouter le repertoire pour les documents HTML
-
 EXPOSE 80 443
 # Exposer les ports 80 et 443
 

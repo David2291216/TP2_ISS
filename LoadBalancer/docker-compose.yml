@@ -5,13 +5,13 @@ services:
       networks:
           - backend1
       volumes:
-          - ./web1/html:/usr/share/nginx/html/web1
+          - ./web1/html:/usr/local/apache2/htdocs/
   php2:
       build: "./php/"
       networks:
           - backend2
       volumes:
-          - ./web2/html:/usr/share/nginx/html/web2
+          - ./web2/html:/usr/local/apache2/htdocs/
   proxy:
       image: nginx:alpine # utilise la version la plus récente
       networks: 
@@ -19,18 +19,22 @@ services:
       ports:
           - '80:80' # expose 80 sur l'hôte et envoie à 80 dans conteneur
       volumes:
-          - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+        - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
   web1:
     #  image: httpd:alpine
       build: "./web1/"  # utilise la version httpd:lapine
+      depends_on:
+          - php1
       networks:
           - frontend
           - backend1
       volumes:
           - ./web1/html:/usr/local/apache2/htdocs/
   web2:
-      image: httpd:alpine
-    # build: "./web2/"  # utilise la version httpd:alpine
+    # image: httpd:alpine
+      build: "./web2/"  # utilise la version httpd:alpine
+      depends_on:
+          - php2
       networks:
           - frontend
           - backend2
