@@ -29,7 +29,7 @@ services:
           - frontend
           - backend1
       volumes:
-          - ./web1/html:/usr/local/apache2/htdocs/
+          - ./web1/html:/usr/local/apache2/htdocs
   web2:
     # image: httpd:alpine
       build: "./web2/"  # utilise la version httpd:alpine

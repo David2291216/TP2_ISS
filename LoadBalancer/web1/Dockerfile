@@ -3,10 +3,10 @@ FROM httpd:alpine
 # Utilise image officiel
 
 RUN apk update \
-&& apk upgrade
+&& apk upgrade 
 
-EXPOSE 80 443
-# Exposer les ports 80 et 443
+EXPOSE 80
+# Exposer les ports 80
 
 WORKDIR /usr/local/apache2/conf
 # Change dans le repertoire de configuration
